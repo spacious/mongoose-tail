@@ -4,7 +4,7 @@ mongoose-tail
 usage
 -----
 ```
-var mongooseTail = require('../lib/');
+var mongooseTail = require('mongoose-tail');
 var tail = new mongooseTail.Tail(
   { timefield: 'timestamp', 
     modelname: 'test', 

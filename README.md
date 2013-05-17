@@ -8,13 +8,13 @@ Features:
 ---------
 -User defined find conditions, selections, limit
 
-Trigging methods:
--emit when there is new document
--emit if timestamp is older than it should be ( "heartbeat is too old" )
+* Trigging modes:
+ * event when there is new document(s)
+ * event if timestamp is older than it should be (  ~"heartbeat is too old" )
 
-Trigging types:
--count
--documents
+* Trigging types:
+ * count
+ * documents (mongoose find results)
 
 
 License

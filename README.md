@@ -6,8 +6,8 @@ Node.js library for mongoose, like tail for mongoose. It allows to poll document
 
 News:
 2013-06-14 
-- individual/compined change-event
-- 
+* individual/compined change-event
+* update documentation
 
 Features:
 ---------

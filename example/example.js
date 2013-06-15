@@ -19,6 +19,7 @@ var i = setInterval( function(){
 
 var mongooseTail = require('../lib/');
 var tail = new mongooseTail.Tail({
+                mongoose: mongoose,
                 timefield: 'timestamp', 
                 modelname: 'test', 
                 start: true, select: 'str',
@@ -29,7 +30,7 @@ var tail = new mongooseTail.Tail({
                 });
 
 tail.on('tick', function(conditions){
-  //console.log('tick');
+  console.log('tick: '+JSON.stringify(conditions));
 });
 tail.on('count', function(count){
   console.log('New count: '+count);

@@ -4,6 +4,8 @@ mongoose-tail
 Node.js library for mongoose, like tail for mongoose. It allows to poll documents 
 (with pre-defined conditions) at regular intervals (uses cron-module) and emit events when conditions are met.
 
+[![Build Status](https://travis-ci.org/jupe/mongoose-tail.png?branch=master)](https://travis-ci.org/jupe/mongoose-tail)
+
 Features:
 ---------
 -User defined find conditions, selections, limit

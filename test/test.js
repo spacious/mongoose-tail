@@ -15,7 +15,7 @@ var msgSchema = new mongoose.Schema({
 var model = mongoose.model('events', msgSchema);
 var index=0;
 var createNew = function(){
-  console.log('event: '+index);
+  //console.log('event: '+index);
   var doc = new model({user: 'me', event: 'test#'+index});
   index++;
   doc.save( function(doc){});
@@ -107,32 +107,37 @@ describe('default -', function() {
     setTimeout( createNew, 1400);
   });
 });
-/*
+
 describe('count -', function() {
   before(function(){
     model.remove({}, function(){});
     tail = new mongooseTail({
+                mongoose: mongoose,
                 timefield: 'createdAt', 
                 modelname: 'events',
                 count: true,
-                cron: 2
+                //cron: 1
                 });
   });  
   it('default', function(done) {
     this.timeout(10000);
-    var timer = setInterval( createNew, 500);
+    
+    var timer;
     tail.on('count', function(count){
-      console.log(count);
-      //assert.equal( count, 1);
-      tail.removeAllListeners();
-      timer.stop();
-      tail.stop();
-      done();
+      //console.log(count + ' /'+index);
+      if(index>4) {
+        assert.equal( count, index-1);
+      }
+      if(index > 14 ) {
+        tail.removeAllListeners();
+        timer.stop();
+        tail.stop();
+        done();
+      }
     });
     assert.equal(tail.isStart(), false);
     tail.start();
     assert.equal(tail.isStart(), true);
-    
+    timer = setInterval( createNew, 500);
   });
 });
-*/

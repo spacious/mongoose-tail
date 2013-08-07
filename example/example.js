@@ -27,6 +27,7 @@ var tail = new mongooseTail.Tail({
                 olderThan: true,
                 limit: 1,
                 count: false,
+                cron: 1 //interval in seconds
                 });
 
 tail.on('tick', function(conditions){

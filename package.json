@@ -2,7 +2,6 @@
   "name": "mongoose-tail",
   "version": "0.0.2",
   "description": "Node.js module for mongoose-tail",
-  "preferGlobal": "true",
   "main": "lib/index.js",
   "author": "Jussi Vatjus-Anttila <jussiva@gmail.com>",
   "contributors": [

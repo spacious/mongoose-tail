@@ -9,7 +9,7 @@ var model = mongoose.model('test', testSchema);
 
 var index=0;
 
-var i = setInterval( function(){
+setInterval( function(){
   for(var i=0;i<3;i++){
     var doc = new model({str: 'test#'+index});
     doc.save();
@@ -17,18 +17,17 @@ var i = setInterval( function(){
   }
 }, 4000);
 
-var mongooseTail = require('../lib/');
-var tail = new mongooseTail.Tail({
-                mongoose: mongoose,
-                timefield: 'timestamp', 
-                modelname: 'test', 
-                start: true, select: 'str',
-                timeOffset: 10,
-                olderThan: true,
-                limit: 1,
-                count: false,
-                cron: 1 //interval in seconds
-                });
+var MongooseTail = require('../lib/');
+var tail = new MongooseTail(mongoose, {
+  timeField: 'timestamp',
+  modelName: 'test',
+  start: true, select: 'str',
+  timeOffset: 10,
+  olderThan: true,
+  limit: 1,
+  count: false,
+  cron: 1 //interval in seconds
+});
 
 tail.on('tick', function(conditions){
   console.log('tick: '+JSON.stringify(conditions));

@@ -1,32 +1,36 @@
 {
-    "name": "mongoose-tail"
-  , "version": "0.0.1"
-  , "preferGlobal": false,
-    "description": "Node.js module for mongoose-tail",
-    "preferGlobal": "true",
-    "main": "lib/index.js",
-    "author": "Jussi Vatjus-Anttila <jussiva@gmail.com>",
-    "contributors": [ 
-      {
-        "name": "Jussi Vatjus-Anttila",
-        "email": "jussiva@gmail.com"
-      } 
-    ],
-    "keywords": ["mongoose", "tail"],
-    "repository" : {
-        "type": "git",
-        "url": "https://github.com/jupe/mongoose-tail.git"
-    },
-    "dependencies": {
-      "underscore": "*"
-    , "cron": "*"
-    , "mongoose": ">=3.4.0"  
-  }, "devDependencies": {
-      "mocha": "*",
-      "chai": "*"
+  "name": "mongoose-tail",
+  "version": "0.0.2",
+  "description": "Node.js module for mongoose-tail",
+  "preferGlobal": "true",
+  "main": "lib/index.js",
+  "author": "Jussi Vatjus-Anttila <jussiva@gmail.com>",
+  "contributors": [
+    {
+      "name": "Jussi Vatjus-Anttila",
+      "email": "jussiva@gmail.com"
+    }
+  ],
+  "keywords": [
+    "mongoose",
+    "tail"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jupe/mongoose-tail.git"
+  },
+  "dependencies": {
+    "cron": "^1.1.0"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*",
+    "mongoose": "^4.4.7"
   },
   "license": "MIT",
-  "engines": { "node": ">=0.8.0" },
+  "engines": {
+    "node": ">=4.3.0"
+  },
   "scripts": {
     "test": "mocha -R list test"
   }

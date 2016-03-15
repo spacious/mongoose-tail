@@ -1,40 +1,54 @@
+
 var mongoose = require('mongoose');
+
 var assert = require('chai').assert;
-var mongooseTail = require('../');
+
+var MongooseTail = require('../');
+
 var tail;
+
 mongoose.connect('mongodb://localhost/mongoose-tail');
 
 var msgSchema = new mongoose.Schema({
+
   createdAt: {type: Date, default: Date.now},
   modifiedAt: {type: Date, default: Date.now},
   user: {type: String},
   event: {type: String}
+
 }).post('save', function(){
+
   this.modifiedAt = Date.now();
 });
+
 var model = mongoose.model('events', msgSchema);
+
 var index=0;
+
 var createNew = function(){
-  //console.log('event: '+index);
+
   var doc = new model({user: 'me', event: 'test#'+index});
   index++;
   doc.save( function(doc){});
-}
+};
 
 describe('init -', function() {
+
   before(function(){
+
     model.remove({}, function(){});
   });
+
   it('default', function(done) {
-    tail = new mongooseTail({
-                mongoose: mongoose,
-                timefield: 'createdAt', 
-                modelname: 'events', 
+
+    tail = new MongooseTail(mongoose, {
+                timeField: 'createdAt',
+                modelName: 'events',
                 start: false,
                 timeOffset: 0,
                 olderThan: false,
                 limit: 1,
-                count: false,
+                count: false
                 });
     assert.typeOf(tail, 'object');
     assert.typeOf(tail.start, 'function');
@@ -48,7 +62,7 @@ describe('init -', function() {
   
   it('error', function(done) {
     try{
-        tail = new mongooseTail();
+        tail = new MongooseTail();
     } catch(e){
       //assert.equal(e, false);
       done();
@@ -56,7 +70,7 @@ describe('init -', function() {
   });
   
   it('default', function(done) {
-    tail = new mongooseTail({ timefield: 'createdAt', modelname: 'events' });
+    tail = new MongooseTail(mongoose, { timeField: 'createdAt', modelName: 'events' });
     assert.typeOf(tail, 'object');
     assert.typeOf(tail.start, 'function');
     assert.typeOf(tail.stop, 'function');
@@ -69,16 +83,22 @@ describe('init -', function() {
   
 });
 describe('default -', function() {
+
   before(function(){
     model.remove({}, function(){});
-    tail = new mongooseTail({
-                timefield: 'createdAt', 
-                modelname: 'events'
+
+    tail = new MongooseTail(mongoose, {
+                timeField: 'createdAt',
+                modelName: 'events'
                 });
   });  
+
   it('tick', function(done) {
+
     this.timeout(2000);
+
     tail.on('tick', function(conditions){
+
       assert.typeOf( conditions.createdAt, 'object');
       assert.typeOf( conditions.createdAt['$gt'], 'Date');
       tail.stop();
@@ -92,7 +112,9 @@ describe('default -', function() {
   });
   
   it('data', function(done) {
+
     this.timeout(3000);
+
     tail.on('data', function(data){
       assert.equal( data.length, 1);
       assert.equal( data[0].user, 'me');
@@ -101,43 +123,60 @@ describe('default -', function() {
       tail.stop();
       done();
     });
+
     assert.equal(tail.isStart(), false);
+
     tail.start();
+
     assert.equal(tail.isStart(), true);
+
     setTimeout( createNew, 1400);
   });
 });
 
 describe('count -', function() {
+
   before(function(){
+
     model.remove({}, function(){});
-    tail = new mongooseTail({
-                mongoose: mongoose,
-                timefield: 'createdAt', 
-                modelname: 'events',
-                count: true,
+
+    tail = new MongooseTail(mongoose, {
+                timeField: 'createdAt',
+                modelName: 'events',
+                count: true
                 //cron: 1
                 });
-  });  
+  });
+
   it('default', function(done) {
+
     this.timeout(10000);
     
     var timer;
+
     tail.on('count', function(count){
+
       //console.log(count + ' /'+index);
-      if(index>4) {
+
+      if(index > 4) {
+
         assert.equal( count, index-1);
       }
+
       if(index > 14 ) {
         tail.removeAllListeners();
-        timer.stop();
+
+        clearInterval(timer);
+
         tail.stop();
         done();
       }
     });
+
     assert.equal(tail.isStart(), false);
     tail.start();
     assert.equal(tail.isStart(), true);
+
     timer = setInterval( createNew, 500);
   });
 });

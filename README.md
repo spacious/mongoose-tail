@@ -1,3 +1,9 @@
+Forked to:
+- use Mongoose 4+
+- use native promises
+- some logic changes
+
+
 mongoose-tail
 =============
 

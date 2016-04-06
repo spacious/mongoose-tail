@@ -32,10 +32,10 @@ Options:
 {
     mongoose:   Object        Mongoose instance
     modelname:  String        Registered model name,
-    cron:       int|String    intervall in seconds/cron pattern for query intervall (optional, default: 10s interval)
+    cron:       int|String    interval in MINUTES/cron pattern for query interval (optional, default: 10s interval)
     start:      Boolean       if query should start immediately (optional, default: false)
     
-    individual: Boolean       individual change-events or compined event
+    individual: Boolean       individual change-events or combined event
     count:      Boolean       result emit only count event instead of data (optional, default: false)
 
     timefield:  String        Date-object field in mongoose model   (optional, default: 'timestamp')

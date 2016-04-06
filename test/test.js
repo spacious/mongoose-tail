@@ -54,7 +54,6 @@ describe('init -', function() {
     assert.typeOf(tail.start, 'function');
     assert.typeOf(tail.stop, 'function');
     assert.typeOf(tail.on, 'function');
-    assert.typeOf(tail.setConditions , 'function');
     assert.typeOf(tail.fetchData  , 'function');
     assert.equal(tail.isStart(), false);
     done();
@@ -75,7 +74,6 @@ describe('init -', function() {
     assert.typeOf(tail.start, 'function');
     assert.typeOf(tail.stop, 'function');
     assert.typeOf(tail.on, 'function');
-    assert.typeOf(tail.setConditions , 'function');
     assert.typeOf(tail.fetchData  , 'function');
     assert.equal(tail.isStart(), false);
     done();
